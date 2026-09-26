@@ -1,0 +1,35 @@
+/* ThemeToggle 버튼 스타일 */
+.toggle {
+  /* 원형 버튼 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  
+  /* 색상 */
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  
+  /* 트랜지션 */
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform var(--transition-fast);
+  
+  flex-shrink: 0;
+}
+
+.toggle:hover {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+  transform: rotate(15deg);
+}
+
+.toggle:active {
+  transform: rotate(15deg) scale(0.92);
+}

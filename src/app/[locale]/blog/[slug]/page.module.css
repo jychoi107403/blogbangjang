@@ -1,0 +1,460 @@
+/* app/[locale]/blog/[slug]/page.module.css */
+/* 글 상세 페이지 스타일 */
+
+/* ─── 2열 레이아웃: 메인 + 우측 사이드바 ─── */
+.layout {
+  display: grid;
+  /* 메인 글 본문이 넓고, 우측 목차는 좁게 */
+  grid-template-columns: 1fr 220px;
+  gap: 3rem;
+  padding: 3rem 0 5rem;
+  align-items: start;
+}
+
+/* 태블릿: 사이드바 숨기기 */
+@media (max-width: 960px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+}
+
+/* ─── 메인 콘텐츠 ─── */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  min-width: 0; /* 그리드 내에서 글자가 넘치지 않게 */
+}
+
+/* 뒤로 가기 링크 */
+.backLink {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.backLink:hover {
+  color: var(--accent-primary);
+}
+
+/* ─── 글 헤더 ─── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 글 제목 */
+.title {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin: 0;
+}
+
+/* 메타 정보 (날짜, 조회수, 읽기 시간) */
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+/* 태그 목록 */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* ─── 시리즈 박스 ─── */
+.seriesBox {
+  border-radius: var(--radius-lg);
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  padding: 1.2rem 1.5rem;
+}
+
+.seriesHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+}
+
+.seriesLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.seriesTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* 시리즈 글 목록 (번호 + 제목) */
+.seriesList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.seriesItem {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 5px 0;
+}
+
+/* 번호 */
+.seriesItemNum {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background-color: var(--bg-tertiary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+}
+
+/* 현재 글 강조 */
+.seriesItemCurrent .seriesItemNum {
+  background: var(--accent-gradient);
+  color: white;
+}
+
+.seriesItemCurrentText {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+/* 다른 글 링크 */
+.seriesItemLink {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.seriesItemLink:hover {
+  color: var(--accent-primary);
+}
+
+/* ─── 본문 콘텐츠 ─── */
+.content {
+  /* 최대 가독성을 위한 줄 너비 */
+  max-width: 70ch;
+  font-size: 1.05rem;
+  line-height: 1.85;
+  color: var(--text-primary);
+}
+
+/* 본문 내 제목들 */
+.content h1, .content h2, .content h3,
+.content h4, .content h5, .content h6 {
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 2em 0 0.8em;
+  color: var(--text-primary);
+}
+
+.content h2 { font-size: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.4em; }
+.content h3 { font-size: 1.2rem; }
+
+/* 본문 내 단락 */
+.content p {
+  margin: 0 0 1.2em;
+}
+
+/* 본문 내 링크 */
+.content a {
+  color: var(--accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* 본문 내 인라인 코드 */
+.content code:not(pre code) {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: var(--bg-tertiary);
+  color: var(--accent-secondary);
+}
+
+/* 본문 내 코드 블록 */
+.content pre {
+  background-color: #1e293b;
+  color: #e2e8f0;
+  padding: 1.2rem 1.5rem;
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  margin: 1.5em 0;
+}
+
+/* 본문 내 인용문 */
+.content blockquote {
+  margin: 1.5em 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--accent-primary);
+  background-color: var(--accent-light);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* 본문 내 이미지 */
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
+  margin: 1.5em 0;
+}
+
+/* 본문 내 목록 */
+.content ul, .content ol {
+  padding-left: 1.5em;
+  margin: 0.8em 0 1.2em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+/* 본문 내 구분선 */
+.content hr {
+  border: none;
+  border-top: 2px solid var(--border-color);
+  margin: 2.5em 0;
+}
+
+/* ─── 시리즈 이전/다음 글 네비게이션 ─── */
+.seriesNav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.seriesNavBtn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 1.2rem;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  text-decoration: none;
+  transition: border-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.seriesNavBtn:hover {
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+.seriesNavNext {
+  text-align: right;
+}
+
+.seriesNavLabel {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.seriesNavTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── 관련 글 섹션 ─── */
+.related {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.relatedTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* 관련 글 카드 그리드 */
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .relatedGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .seriesNav {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── 댓글 섹션 ─── */
+.comments {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--border-color);
+}
+
+.commentsTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* 댓글 작성 폼 */
+.commentForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.commentFields {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* 닉네임 + 비밀번호 같은 행 */
+.commentRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 500px) {
+  .commentRow {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.formLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.formHint {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--text-tertiary);
+}
+
+.formInput, .formTextarea {
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  resize: vertical; /* textarea만 세로 조절 가능 */
+  transition: border-color var(--transition-fast);
+}
+
+.formInput:focus, .formTextarea:focus {
+  border-color: var(--accent-primary);
+}
+
+.formInput::placeholder, .formTextarea::placeholder {
+  color: var(--text-tertiary);
+}
+
+.commentSubmit {
+  align-self: flex-end; /* 오른쪽 정렬 */
+}
+
+/* 댓글 목록 플레이스홀더 */
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.commentsPlaceholder {
+  color: var(--text-tertiary);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 2rem;
+}
+
+/* ─── 우측 사이드바 (목차) ─── */
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-height) + 1.5rem);
+}
+
+.tocCard {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.2rem;
+}
+
+.tocTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin: 0 0 0.8rem;
+}
+
+.tocPlaceholder {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  margin: 0;
+  line-height: 1.6;
+}

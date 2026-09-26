@@ -1,0 +1,129 @@
+/* app/admin/layout.module.css */
+/* 어드민 레이아웃 스타일 */
+
+/* 전체 레이아웃: 사이드바(고정) + 메인(나머지) */
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  /* 어드민은 블로그와 다른 배경색 */
+  background-color: var(--bg-secondary);
+}
+
+/* ─── 사이드바 ─── */
+.sidebar {
+  position: fixed;     /* 스크롤해도 고정 */
+  top: 0;
+  left: 0;
+  width: 240px;
+  height: 100vh;       /* 화면 전체 높이 */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border-right: 1px solid var(--border-color);
+  z-index: 100;
+}
+
+/* 로고 영역 */
+.sidebarLogo {
+  padding: 1.5rem 1.2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logoLink {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.logoIcon {
+  font-size: 1.5rem;
+}
+
+.logoText {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+/* 사이드바 메뉴 */
+.sidebarNav {
+  flex: 1;
+  padding: 1rem 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* 메뉴 아이템 */
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 10px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.menuItem:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* 활성 메뉴 아이템 */
+.menuItemActive {
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.menuItemActive:hover {
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+}
+
+.menuIcon {
+  font-size: 1rem;
+}
+
+/* 사이드바 하단 */
+.sidebarFooter {
+  padding: 1rem 1.2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.backToSite {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.backToSite:hover {
+  color: var(--accent-primary);
+}
+
+/* ─── 메인 콘텐츠 ─── */
+.main {
+  margin-left: 240px; /* 사이드바 너비만큼 왼쪽 여백 */
+  flex: 1;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* 모바일: 사이드바 숨기고 상단 바로 변경 (추후 구현) */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+
+  .main {
+    margin-left: 0;
+    padding: 1rem;
+  }
+}

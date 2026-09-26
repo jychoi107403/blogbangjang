@@ -1,0 +1,144 @@
+/* components/blog/PostCard.module.css */
+/* 블로그 글 카드 스타일 */
+
+/* ─── 카드 컨테이너 ─── */
+.card {
+  display: flex;
+  flex-direction: column;
+
+  /* 카드 배경 & 모서리 */
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden; /* 이미지가 카드 밖으로 나가지 않게 */
+
+  /* 텍스트 스타일 초기화 (Link 컴포넌트 기본 스타일 제거) */
+  text-decoration: none;
+  color: inherit;
+
+  /* 그림자 */
+  box-shadow: var(--shadow-sm);
+
+  /* 호버 애니메이션 */
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+
+  /* 카드 높이 통일 */
+  height: 100%;
+}
+
+/* 마우스 올렸을 때 카드가 떠오르는 효과 */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ─── 썸네일 이미지 영역 ─── */
+.thumbnail {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* 와이드스크린 비율 유지 */
+  overflow: hidden;
+  flex-shrink: 0;
+  background-color: var(--bg-tertiary);
+}
+
+/* Next.js Image 컴포넌트 (fill 모드) */
+.image {
+  object-fit: cover; /* 이미지가 영역을 꽉 채우게 */
+  transition: transform var(--transition-slow);
+}
+
+/* 카드 호버 시 이미지 확대 효과 */
+.card:hover .image {
+  transform: scale(1.04);
+}
+
+/* 썸네일이 없을 때 표시되는 플레이스홀더 */
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 포인트 색상 그라디언트 배경 */
+  background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--accent-light) 100%);
+}
+
+.placeholderIcon {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+
+/* ─── 텍스트 콘텐츠 영역 ─── */
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  flex: 1; /* 남은 공간을 모두 차지해서 카드 높이를 균등하게 */
+}
+
+/* ─── 글 제목 ─── */
+.title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.45;
+  margin: 0;
+
+  /* 2줄 초과 시 ... 처리 */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 카드 호버 시 제목 색상 변경 */
+.card:hover .title {
+  color: var(--accent-primary);
+}
+
+/* ─── 글 요약 ─── */
+.excerpt {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  flex: 1; /* 요약 텍스트가 공간을 채워서 메타 정보가 항상 하단에 위치하게 */
+
+  /* 3줄 초과 시 ... 처리 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ─── 태그 목록 ─── */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ─── 하단 메타 정보 ─── */
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: auto; /* 항상 카드 하단에 위치 */
+  padding-top: 8px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* 날짜 텍스트 */
+.date {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}
+
+/* 조회수 */
+.views {
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+}

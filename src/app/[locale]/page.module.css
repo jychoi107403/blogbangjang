@@ -1,0 +1,372 @@
+/* app/[locale]/page.module.css */
+/* 홈 페이지 스타일 */
+
+/* ═══════════════════════════════════════ */
+/* 페이지 전체 컨테이너 */
+/* ═══════════════════════════════════════ */
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem; /* 각 섹션 사이 여백 */
+  padding-bottom: 5rem;
+}
+
+/* ═══════════════════════════════════════ */
+/* 히어로 섹션 */
+/* ═══════════════════════════════════════ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0 5rem;
+  /* 최소 높이 설정 */
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+}
+
+/* 히어로 내부 콘텐츠 (텍스트 등) */
+.heroInner {
+  position: relative;
+  z-index: 1; /* 배경 장식보다 앞에 표시 */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.5rem;
+  max-width: 700px;
+}
+
+/* 작은 레이블 (✦ 개발 & 배움의 기록) */
+.heroLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* 메인 타이틀 */
+.heroTitle {
+  font-size: clamp(2.2rem, 5vw, 3.5rem); /* 화면 크기에 따라 유동적으로 변화 */
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* 강조 텍스트 (그라디언트 색상) */
+.heroAccent {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;       /* 텍스트에만 그라디언트 적용 */
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* 부제목 */
+.heroDesc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 520px;
+}
+
+/* CTA 버튼 그룹 */
+.heroCta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* 보조 버튼 스타일 */
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-color);
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  transition: border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+}
+
+.btnSecondary:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  transform: translateY(-1px);
+}
+
+/* 히어로 배경 장식 (블러 원) */
+.heroBg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* 클릭 이벤트 무시 */
+  overflow: hidden;
+}
+
+/* 첫 번째 배경 블롭 (우측 상단) */
+.heroBgBlob1 {
+  position: absolute;
+  top: -100px;
+  right: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12) 0%, transparent 70%);
+  animation: blobFloat 8s ease-in-out infinite;
+}
+
+/* 두 번째 배경 블롭 (좌측 하단) */
+.heroBgBlob2 {
+  position: absolute;
+  bottom: -80px;
+  left: 10%;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+  animation: blobFloat 10s ease-in-out infinite reverse; /* 반대 방향으로 */
+}
+
+/* 블롭 천천히 흔들리는 애니메이션 */
+@keyframes blobFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%       { transform: translate(20px, -20px) scale(1.05); }
+  66%       { transform: translate(-15px, 15px) scale(0.97); }
+}
+
+/* ═══════════════════════════════════════ */
+/* 카테고리 빠른 탐색 */
+/* ═══════════════════════════════════════ */
+.categories {
+  /* 섹션 자체 스타일 없음, container 안에 목록 표시 */
+}
+
+/* 카테고리 칩 가로 스크롤 목록 */
+.categoryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+/* 카테고리 칩 (버튼처럼 생긴 링크) */
+.categoryChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.categoryChip:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background-color: var(--accent-light);
+  transform: translateY(-1px);
+}
+
+/* "전체" 칩: 포인트 색상으로 강조 */
+.categoryChipAll {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: white;
+}
+
+.categoryChipAll:hover {
+  opacity: 0.9;
+  color: white;
+  background: var(--accent-gradient);
+}
+
+/* 카테고리 글 수 배지 */
+.categoryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background-color: var(--bg-tertiary);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+}
+
+/* ═══════════════════════════════════════ */
+/* 최신 글 목록 */
+/* ═══════════════════════════════════════ */
+.latestPosts {
+  /* 섹션 자체 스타일 없음 */
+}
+
+/* 섹션 헤더 (제목 + 전체 보기 링크) */
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.seeAll {
+  font-size: 0.875rem;
+  color: var(--accent-primary);
+  font-weight: 500;
+  transition: opacity var(--transition-fast);
+}
+
+.seeAll:hover {
+  opacity: 0.7;
+}
+
+/* 3열 카드 그리드 */
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* 태블릿: 2열 */
+@media (max-width: 900px) {
+  .postsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 모바일: 1열 */
+@media (max-width: 600px) {
+  .postsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 글 없을 때 빈 상태 표시 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+}
+
+.emptyState span {
+  font-size: 3rem;
+}
+
+/* ═══════════════════════════════════════ */
+/* 뉴스레터 구독 섹션 */
+/* ═══════════════════════════════════════ */
+.newsletter {
+  /* 섹션 자체 스타일 없음 */
+}
+
+/* 구독 박스 (둥근 그라디언트 카드) */
+.newsletterBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.2rem;
+  padding: 3.5rem 2rem;
+  border-radius: var(--radius-xl);
+  /* 배경: 포인트 그라디언트의 연한 버전 */
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-color);
+}
+
+/* 이모지 아이콘 */
+.newsletterIcon {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+.newsletterTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.newsletterDesc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin: 0;
+  max-width: 460px;
+}
+
+/* 이메일 입력 + 버튼 가로 배치 */
+.newsletterForm {
+  width: 100%;
+  max-width: 480px;
+}
+
+.newsletterInputRow {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.newsletterInput {
+  flex: 1;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+
+.newsletterInput:focus {
+  border-color: var(--accent-primary);
+}
+
+.newsletterInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.newsletterBtn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 모바일: 수직 배치 */
+@media (max-width: 500px) {
+  .newsletterInputRow {
+    flex-direction: column;
+  }
+
+  .heroCta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

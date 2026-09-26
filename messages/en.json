@@ -1,0 +1,66 @@
+{
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "series": "Series",
+    "search": "Search",
+    "about": "About"
+  },
+  "home": {
+    "title": "Bangjang Blog",
+    "subtitle": "Notes on Development, Tech, and Learning",
+    "latestPosts": "Latest Posts",
+    "viewAll": "View All",
+    "newsletter": {
+      "title": "Subscribe to Newsletter",
+      "description": "Get notified when new posts are published",
+      "placeholder": "Enter your email",
+      "button": "Subscribe",
+      "success": "Thanks for subscribing! Check your email.",
+      "error": "Something went wrong. Please try again."
+    }
+  },
+  "blog": {
+    "readMore": "Read More",
+    "readingTime": "{minutes} min read",
+    "publishedAt": "Published {date}",
+    "updatedAt": "Updated {date}",
+    "views": "{count} views",
+    "share": "Share",
+    "copyLink": "Copy Link",
+    "copied": "Copied!",
+    "tableOfContents": "Table of Contents",
+    "tags": "Tags",
+    "relatedPosts": "Related Posts",
+    "series": "Series",
+    "seriesNav": "{current} of {total}"
+  },
+  "comments": {
+    "title": "Comments",
+    "placeholder": "Write a comment...",
+    "nickname": "Nickname",
+    "password": "Password",
+    "passwordHint": "Required for deletion",
+    "submit": "Submit",
+    "reply": "Reply",
+    "delete": "Delete",
+    "deleteConfirm": "Enter password to delete",
+    "secret": "Private comment",
+    "secretContent": "This is a private comment.",
+    "noComments": "Be the first to comment!"
+  },
+  "search": {
+    "placeholder": "Search...",
+    "results": "Results for '{query}'",
+    "noResults": "No results found.",
+    "searchIn": "Search in title and content"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "back": "Back",
+    "darkMode": "Dark Mode",
+    "lightMode": "Light Mode",
+    "language": "Language"
+  }
+}

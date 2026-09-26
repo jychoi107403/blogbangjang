@@ -1,0 +1,215 @@
+/* app/admin/dashboard/page.module.css */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 헤더: 제목 + 새 글 버튼 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ─── 통계 카드 4열 그리드 ─── */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 1000px) {
+  .statsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .statsGrid { grid-template-columns: 1fr; }
+}
+
+/* 통계 카드 */
+.statCard {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.2rem 1.5rem;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+
+.statIcon {
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.statInfo {
+  flex: 1;
+}
+
+.statValue {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.statLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+
+.statSub {
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}
+
+/* 링크 화살표 */
+.statLink {
+  font-size: 1.2rem;
+  color: var(--accent-primary);
+  text-decoration: none;
+  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-fast);
+}
+
+.statLink:hover {
+  background-color: var(--accent-light);
+}
+
+/* ─── 최근 글 섹션 ─── */
+.recentSection {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.seeAll {
+  font-size: 0.8rem;
+  color: var(--accent-primary);
+  font-weight: 500;
+}
+
+/* 테이블 */
+.postsTable {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1fr 90px 60px 80px 100px 60px;
+  padding: 0.6rem 1.5rem;
+  background-color: var(--bg-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 90px 60px 80px 100px 60px;
+  padding: 0.8rem 1.5rem;
+  border-top: 1px solid var(--border-color);
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: background-color var(--transition-fast);
+}
+
+.tableRow:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* 제목 컬럼 */
+.colTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.postTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.colStatus, .colLocale, .colViews, .colDate, .colAction {
+  text-align: center;
+}
+
+/* 발행 상태 뱃지 */
+.statusBadge {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.statusPublished {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+
+.statusDraft {
+  background-color: var(--bg-tertiary);
+  color: var(--text-tertiary);
+}
+
+/* 보기 버튼 */
+.actionBtn {
+  padding: 3px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.actionBtn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  text-align: center;
+  color: var(--text-secondary);
+}

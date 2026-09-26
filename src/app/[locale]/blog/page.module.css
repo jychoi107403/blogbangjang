@@ -1,0 +1,238 @@
+/* app/[locale]/blog/page.module.css */
+/* 블로그 글 목록 페이지 스타일 */
+
+/* ─── 2열 레이아웃: 사이드바 + 메인 ─── */
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr; /* 사이드바 고정 너비, 메인 나머지 */
+  gap: 2.5rem;
+  padding: 3rem 0 5rem;
+  align-items: start; /* 사이드바와 메인을 상단 정렬 */
+}
+
+/* 태블릿: 사이드바 숨기고 1열 */
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none; /* 모바일/태블릿에서 사이드바 숨김 */
+  }
+}
+
+/* ─── 사이드바 ─── */
+.sidebar {
+  position: sticky; /* 스크롤해도 화면에 고정 */
+  top: calc(var(--header-height) + 1.5rem);
+}
+
+.sidebarCard {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  padding: 1.2rem;
+}
+
+.sidebarTitle {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-tertiary);
+  margin: 0 0 0.8rem;
+}
+
+/* 카테고리 네비게이션 목록 */
+.categoryNav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+/* 카테고리 아이템 (링크) */
+.categoryItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 7px 10px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.categoryItem:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* 선택된 카테고리 강조 */
+.categoryItemActive {
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+  font-weight: 600;
+}
+
+.categoryItemActive:hover {
+  background-color: var(--accent-light);
+  color: var(--accent-primary);
+}
+
+/* 카테고리 색상 점 */
+.categoryDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 카테고리 글 수 (오른쪽 끝) */
+.categoryItemCount {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  background-color: var(--bg-tertiary);
+  padding: 1px 7px;
+  border-radius: 10px;
+}
+
+/* ─── 메인 영역 ─── */
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* 페이지 헤더 (제목 + 글 수) */
+.pageHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+/* 3열 글 카드 그리드 */
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
+}
+
+/* 태블릿: 2열 */
+@media (max-width: 1100px) {
+  .postsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 모바일: 1열 */
+@media (max-width: 600px) {
+  .postsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ─── 페이지네이션 ─── */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding-top: 1rem;
+}
+
+/* 이전/다음 버튼 */
+.pageBtn {
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background-color: var(--bg-card);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.pageBtn:hover:not(.pageBtnDisabled) {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* 비활성화된 버튼 */
+.pageBtnDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* 페이지 번호 목록 */
+.pageNumbers {
+  display: flex;
+  gap: 0.3rem;
+}
+
+/* 각 페이지 번호 */
+.pageNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.pageNumber:hover {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* 현재 페이지 번호 강조 */
+.pageNumberActive {
+  background: var(--accent-gradient);
+  color: white;
+  font-weight: 700;
+}
+
+.pageNumberActive:hover {
+  opacity: 0.9;
+  color: white;
+}
+
+/* ─── 글 없을 때 빈 상태 ─── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 5rem 2rem;
+  text-align: center;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+}
+
+.emptyState span {
+  font-size: 3rem;
+}

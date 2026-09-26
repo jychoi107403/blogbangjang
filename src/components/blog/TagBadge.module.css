@@ -1,0 +1,33 @@
+/* components/blog/TagBadge.module.css */
+/* 태그 뱃지 스타일 */
+
+.badge {
+  /* 인라인 블록으로 표시 */
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 999px; /* 완전히 둥근 모양 (pill shape) */
+
+  /* 폰트 */
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  /* 기본 색상 (CSS 변수 활용 → 다크모드 자동 대응) */
+  color: var(--accent-primary);          /* 인디고/바이올렛 계열 포인트 색상 */
+  background-color: var(--accent-light); /* 연한 인디고 배경 */
+
+  /* 부드러운 전환 효과 */
+  transition: background-color 0.2s ease, transform 0.15s ease;
+
+  /* 커서 */
+  cursor: pointer;
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+
+/* 마우스 올렸을 때 */
+.badge:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  transform: translateY(-1px); /* 살짝 위로 떠오르는 효과 */
+}

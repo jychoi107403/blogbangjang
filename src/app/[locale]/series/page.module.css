@@ -1,0 +1,156 @@
+/* app/[locale]/series/page.module.css */
+
+.page {
+  padding: 3rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* 시리즈 카드 그리드 */
+.seriesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .seriesGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .seriesGrid { grid-template-columns: 1fr; }
+}
+
+/* 시리즈 카드 */
+.seriesCard {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.seriesCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* 썸네일 영역 */
+.seriesThumbnail {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background-color: var(--bg-tertiary);
+}
+
+.seriesImage {
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.seriesCard:hover .seriesImage {
+  transform: scale(1.04);
+}
+
+/* 썸네일 플레이스홀더 */
+.seriesImagePlaceholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-gradient);
+  font-size: 3rem;
+}
+
+/* 글 수 배지 (썸네일 우측 하단) */
+.postCountBadge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background-color: rgba(0, 0, 0, 0.65);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+/* 시리즈 정보 */
+.seriesInfo {
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.seriesTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.seriesDesc {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.seriesReadMore {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin-top: auto;
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem;
+  text-align: center;
+  border: 2px dashed var(--border-color);
+  border-radius: var(--radius-xl);
+  color: var(--text-secondary);
+}
+
+.emptyState span { font-size: 3rem; }

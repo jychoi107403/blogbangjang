@@ -1,0 +1,253 @@
+/* ─── Header 스타일 ─── */
+
+/* 고정 헤더 */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 100;
+  /* 글래스모피즘 효과 */
+  background: rgba(var(--bg-primary-rgb, 255, 255, 255), 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid transparent;
+  transition:
+    background var(--transition-normal),
+    border-color var(--transition-normal),
+    box-shadow var(--transition-normal);
+}
+
+/* 스크롤 시 배경 강화 */
+.scrolled {
+  background: rgba(var(--bg-primary-rgb, 255, 255, 255), 0.92);
+  border-bottom-color: var(--border-color);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-theme="dark"] .header {
+  background: rgba(15, 23, 42, 0.7);
+}
+
+[data-theme="dark"] .scrolled {
+  background: rgba(15, 23, 42, 0.92);
+}
+
+/* 헤더 내부 레이아웃 (로고 - 네비 - 액션 3분할) */
+.inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+/* ─── 로고 ─── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.logoIcon {
+  font-size: 1.375rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  transition: transform var(--transition-fast);
+}
+
+.logo:hover .logoIcon {
+  transform: rotate(20deg) scale(1.15);
+}
+
+.logoText {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  transition: color var(--transition-fast);
+}
+
+.logo:hover .logoText {
+  color: var(--accent-primary);
+}
+
+/* ─── 데스크탑 네비게이션 ─── */
+.nav {
+  flex: 1;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+}
+
+.navLink {
+  display: block;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.navLink:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+/* 활성 링크 */
+.navLinkActive {
+  color: var(--accent-primary);
+  background: var(--accent-light);
+}
+
+.navLinkActive:hover {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+}
+
+/* ─── 우측 액션 버튼들 ─── */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* 언어 전환 버튼 */
+.langBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 0.75rem;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast);
+  cursor: pointer;
+}
+
+.langBtn:hover {
+  background: var(--accent-light);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
+}
+
+/* ─── 햄버거 버튼 (모바일 전용) ─── */
+.hamburger {
+  display: none; /* 데스크탑에서 숨김 */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  transition: background var(--transition-fast);
+  cursor: pointer;
+}
+
+.hamburger:hover {
+  background: var(--bg-tertiary);
+}
+
+.hamburgerLine {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform var(--transition-normal), opacity var(--transition-fast);
+  transform-origin: center;
+}
+
+/* 열린 상태 X 아이콘 */
+.hamburgerOpen .hamburgerLine:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburgerOpen .hamburgerLine:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.hamburgerOpen .hamburgerLine:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── 모바일 드롭다운 메뉴 ─── */
+.mobileMenu {
+  display: none; /* 데스크탑에서 숨김 */
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height var(--transition-normal);
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+}
+
+.mobileMenuOpen {
+  max-height: 300px;
+}
+
+.mobileNavList {
+  list-style: none;
+  padding: 0.75rem 1rem;
+}
+
+.mobileNavLink {
+  display: block;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.mobileNavLink:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.mobileNavLinkActive {
+  color: var(--accent-primary);
+  background: var(--accent-light);
+}
+
+/* ─── 반응형 ─── */
+@media (max-width: 768px) {
+  .nav {
+    display: none; /* 모바일에서 데스크탑 네비 숨김 */
+  }
+
+  .hamburger {
+    display: flex; /* 모바일에서 햄버거 표시 */
+  }
+
+  .mobileMenu {
+    display: block; /* 모바일에서 드롭다운 메뉴 활성화 */
+  }
+}

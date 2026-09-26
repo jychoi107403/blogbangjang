@@ -1,0 +1,122 @@
+/* app/[locale]/search/page.module.css */
+
+.page {
+  padding: 3rem 0 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* 검색 입력 섹션 */
+.searchSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* 검색 폼 */
+.searchForm {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 600px;
+}
+
+/* 아이콘 + 입력창 묶음 */
+.searchInputWrapper {
+  position: relative;
+  flex: 1;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.8rem; /* 아이콘 공간 확보 */
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 1rem;
+  outline: none;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.searchInput:focus {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.searchInput::placeholder {
+  color: var(--text-tertiary);
+}
+
+.searchBtn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* 검색 결과 영역 */
+.results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.resultCount {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+/* 결과 그리드 */
+.postsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .postsGrid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 600px) {
+  .postsGrid { grid-template-columns: 1fr; }
+
+  .searchForm {
+    flex-direction: column;
+  }
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.emptyState span {
+  font-size: 3rem;
+}
+
+.emptyHint {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}

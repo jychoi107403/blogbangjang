@@ -1,0 +1,8 @@
+{
+    "onlyBuiltDependencies":  [
+                                  "unrs-resolver",
+                                  "sharp",
+                                  "@next/swc-win32-x64-msvc",
+                                  "esbuild"
+                              ]
+}

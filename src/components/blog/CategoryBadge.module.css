@@ -1,0 +1,32 @@
+/* components/blog/CategoryBadge.module.css */
+/* 카테고리 뱃지 스타일 */
+
+.badge {
+  /* 인라인 블록 */
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 6px;     /* 태그와 구분되는 약간 각진 모양 */
+  border: 1px solid transparent;
+
+  /* 폰트 */
+  font-size: 0.75rem;
+  font-weight: 600;       /* 카테고리는 좀 더 굵게 */
+  text-decoration: none;
+
+  /* 기본 색상 (color prop이 없을 때) */
+  color: var(--text-secondary);
+  background-color: var(--bg-tertiary);
+
+  /* 전환 효과 */
+  transition: opacity 0.2s ease, transform 0.15s ease;
+
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* 마우스 올렸을 때 */
+.badge:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}

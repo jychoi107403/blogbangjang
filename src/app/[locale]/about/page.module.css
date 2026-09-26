@@ -1,0 +1,185 @@
+/* app/[locale]/about/page.module.css */
+/* 소개 페이지 스타일 */
+
+/* ═══════════════════════════════════════ */
+/* 페이지 전체 레이아웃 */
+/* ═══════════════════════════════════════ */
+.page {
+  padding: 3rem 0 5rem;
+}
+
+/* ═══════════════════════════════════════ */
+/* 헤더 영역 (제목 + 설명) */
+/* ═══════════════════════════════════════ */
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════ */
+/* 프로필 카드 */
+/* ═══════════════════════════════════════ */
+.profileCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  max-width: 800px;
+  margin: 0 auto 2.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--accent-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  flex-shrink: 0;
+}
+
+.profileInfo h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.profileInfo p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.profileBio {
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.profileBio p {
+  margin-bottom: 1rem;
+}
+
+.profileBio p:last-child {
+  margin-bottom: 0;
+}
+
+/* ═══════════════════════════════════════ */
+/* 정보 그리드 (기술 스택, 연락처 등) */
+/* ═══════════════════════════════════════ */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.infoCard {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.infoCard h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tagList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tag {
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.contactList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.contactItem a {
+  color: var(--accent-primary);
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.contactItem a:hover {
+  opacity: 0.8;
+}
+
+/* ═══════════════════════════════════════ */
+/* 반응형 */
+/* ═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .profileHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .profileCard,
+  .infoCard {
+    padding: 1.5rem;
+  }
+}
