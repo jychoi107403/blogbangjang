@@ -1,0 +1,178 @@
+/* app/admin/posts/page.module.css */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* 상단 헤더 */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.titleArea {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.postCount {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+/* 글 목록 테이블 컨테이너 */
+.postsSection {
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.postsTable {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 1fr 100px 70px 90px 120px 80px;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--bg-secondary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 1fr 100px 70px 90px 120px 80px;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  align-items: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: background-color var(--transition-fast);
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableRow:hover {
+  background-color: var(--bg-secondary);
+}
+
+/* 제목 컬럼 */
+.colTitle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-right: 1rem;
+}
+
+.postTitle {
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.postTitle:hover {
+  color: var(--accent-primary);
+}
+
+.colStatus, .colLocale, .colViews, .colDate, .colAction {
+  text-align: center;
+}
+
+/* 상태 뱃지 */
+.statusBadge {
+  display: inline-flex;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.statusPublished {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #16a34a;
+}
+
+.statusDraft {
+  background-color: var(--bg-tertiary);
+  color: var(--text-tertiary);
+}
+
+/* 보기 버튼 */
+.actionBtn {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.actionBtn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background-color: var(--accent-light);
+}
+
+/* 빈 상태 */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 4rem 1.5rem;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.emptyIcon {
+  font-size: 2.5rem;
+}
+
+@media (max-width: 768px) {
+  .tableHeader {
+    grid-template-columns: 1fr 80px 70px;
+  }
+  .tableHeader > div:nth-child(3),
+  .tableHeader > div:nth-child(4),
+  .tableHeader > div:nth-child(5) {
+    display: none;
+  }
+
+  .tableRow {
+    grid-template-columns: 1fr 80px 70px;
+  }
+  .tableRow > div:nth-child(3),
+  .tableRow > div:nth-child(4),
+  .tableRow > div:nth-child(5) {
+    display: none;
+  }
+}
