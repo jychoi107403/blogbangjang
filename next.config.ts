@@ -15,8 +15,8 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // 실험적 기능: 서버 컴포넌트에서 외부 패키지 허용
-  serverExternalPackages: ["@node-rs/argon2"],
 };
 
 export default withNextIntl(nextConfig);
+
+import('@opennextjs/cloudflare').then(m => m.initOpenNextCloudflareForDev());
