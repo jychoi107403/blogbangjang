@@ -1,16 +1,63 @@
 // app/layout.tsx
-// 최상위 레이아웃: HTML 기본 구조만 설정
-// 실제 페이지 레이아웃은 app/[locale]/layout.tsx에서 처리
+// 최상위 레이아웃: HTML 기본 구조, SEO 메타태그, 검색엔진 인증 및 외부 스크립트 설정
+// 실제 페이지 콘텐츠 레이아웃은 app/[locale]/layout.tsx에서 처리
 
 import type { Metadata } from "next";
 import "./globals.css";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bangjang.net";
+const NAVER_VERIFICATION = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "";
+const GOOGLE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "";
+
 export const metadata: Metadata = {
-  title: "방장 블로그",
-  description: "개발, 기술, 그리고 배움의 기록",
-  // 구글 애드센스 소유권 인증 메타태그
+  metadataBase: new URL(SITE_URL),
+  title: {
+    template: "%s | 방장 블로그",
+    default: "방장 블로그 — 개발, 기술, 그리고 배움의 기록",
+  },
+  description: "개발, 기술, 그리고 배움의 기록. Next.js, TypeScript, 웹 개발, AI 활용 등 다양한 주제의 글을 공유합니다.",
+  keywords: ["방장 블로그", "웹 개발", "Next.js", "TypeScript", "React", "AI 활용", "개발자 블로그"],
+  authors: [{ name: "방장" }],
+  creator: "방장",
+  publisher: "방장 블로그",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  // Open Graph (네이버 및 카카오톡, 페이스북 링크 미리보기)
+  openGraph: {
+    type: "website",
+    locale: "ko_KR",
+    url: SITE_URL,
+    siteName: "방장 블로그",
+    title: "방장 블로그 — 개발, 기술, 그리고 배움의 기록",
+    description: "개발, 기술, 그리고 배움의 기록. Next.js, TypeScript, 웹 개발, AI 활용 등 다양한 주제의 글을 공유합니다.",
+  },
+  // 트위터 카드
+  twitter: {
+    card: "summary_large_image",
+    title: "방장 블로그",
+    description: "개발, 기술, 그리고 배움의 기록",
+  },
+  // 사이트맵 및 RSS 피드 링크
+  alternates: {
+    canonical: SITE_URL,
+    types: {
+      "application/rss+xml": `${SITE_URL}/rss.xml`,
+    },
+  },
+  // 검색엔진 및 외부 서비스 소유권 인증 태그
   other: {
     "google-adsense-account": "ca-pub-1774804957511077",
+    ...(NAVER_VERIFICATION ? { "naver-site-verification": NAVER_VERIFICATION } : {}),
+    ...(GOOGLE_VERIFICATION ? { "google-site-verification": GOOGLE_VERIFICATION } : {}),
   },
 };
 
@@ -21,11 +68,28 @@ export default function RootLayout({
 }) {
   return (
     // suppressHydrationWarning: 다크모드 초기화 시 발생하는 hydration 경고 억제
-    // (ThemeToggle이 클라이언트에서 data-theme을 설정하기 때문)
     <html lang="ko" suppressHydrationWarning>
       <head>
-        {/* 구글 애드센스 인증 메타태그 */}
+        {/* 구글 애드센스 공식 메타태그 */}
         <meta name="google-adsense-account" content="ca-pub-1774804957511077" />
+
+        {/* 네이버 서치어드바이저 소유권 확인 메타태그 (환경변수가 비어있을 경우를 대비한 태그 렌더링) */}
+        {NAVER_VERIFICATION && (
+          <meta name="naver-site-verification" content={NAVER_VERIFICATION} />
+        )}
+
+        {/* 구글 서치콘솔 소유권 확인 메타태그 */}
+        {GOOGLE_VERIFICATION && (
+          <meta name="google-site-verification" content={GOOGLE_VERIFICATION} />
+        )}
+
+        {/* RSS 피드 자동 검색 링크 */}
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          title="방장 블로그 RSS Feed"
+          href="/rss.xml"
+        />
 
         {/* 구글 애드센스 공식 광고 스크립트 */}
         <script

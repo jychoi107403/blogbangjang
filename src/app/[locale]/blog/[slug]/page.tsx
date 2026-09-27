@@ -2,6 +2,7 @@
 // 블로그 글 상세 페이지
 // 본문, 태그, 시리즈 네비게이션, 관련 글, 댓글 섹션 포함
 // Fallback 지원: 번역본이 없어도 원본 글을 정상 렌더링하고 사용자에게 부드럽게 안내
+// Google Rich Snippet (JSON-LD) 구조화 데이터 내장으로 구글/네이버 검색 최적화
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -26,14 +27,29 @@ export async function generateMetadata({ params }: PostDetailPageProps): Promise
     return { title: "글을 찾을 수 없습니다" };
   }
 
+  const postUrl = `https://bangjang.net/${locale}/blog/${slug}`;
+
   return {
     title: post.title,
     description: post.excerpt ?? undefined,
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt ?? undefined,
-      images: post.thumbnail_url ? [post.thumbnail_url] : [],
+      url: postUrl,
       type: "article",
+      publishedTime: post.published_at || post.created_at,
+      modifiedTime: post.updated_at || post.created_at,
+      authors: ["방장"],
+      images: post.thumbnail_url ? [post.thumbnail_url] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt ?? undefined,
+      images: post.thumbnail_url ? [post.thumbnail_url] : [],
     },
   };
 }
@@ -70,8 +86,39 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
   // 현재 글이 시리즈의 몇 번째인지 찾기
   const currentSeriesIndex = seriesPosts.findIndex((p) => p.id === post.id);
 
+  // ─── 구글/네이버 검색용 구조화 데이터 (Schema.org JSON-LD) ───
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt || post.title,
+    image: post.thumbnail_url ? [post.thumbnail_url] : undefined,
+    datePublished: post.published_at || post.created_at,
+    dateModified: post.updated_at || post.created_at,
+    author: {
+      "@type": "Person",
+      name: "방장",
+      url: "https://bangjang.net",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "방장 블로그",
+      url: "https://bangjang.net",
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://bangjang.net/${locale}/blog/${post.slug}`,
+    },
+  };
+
   return (
     <article className="container">
+      {/* 구글 리치 스니펫 검색 로봇용 JSON-LD 스크립트 */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       <div className={styles.layout}>
         {/* ─────────────────────────────── */}
         {/* 메인 콘텐츠 */}
