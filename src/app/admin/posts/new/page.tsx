@@ -82,8 +82,15 @@ export default function NewPostPage() {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error ?? "글 저장에 실패했습니다.");
+        let errorMessage = "글 저장에 실패했습니다.";
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch {
+          const text = await response.text();
+          if (text) errorMessage = text;
+        }
+        throw new Error(errorMessage);
       }
 
       // 저장 성공 시 대시보드로 이동

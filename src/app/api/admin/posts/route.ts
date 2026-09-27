@@ -58,40 +58,56 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const supabase = createAdminClient();
-
-  // ─── 글 저장 ───
-  const { data: newPost, error } = await supabase
-    .from("posts")
-    .insert({
-      title: title.trim(),
-      slug: slug.trim(),
-      excerpt: excerpt.trim(),
-      content,
-      locale,
-      status,
-      thumbnail_url: thumbnail_url || null,
-      // 빈 문자열은 null로 처리 (외래키 제약 때문에)
-      category_id: category_id || null,
-      series_id: series_id || null,
-      published_at: published_at ?? null,
-    })
-    .select("id, title, slug, status, locale")
-    .single();
-
-  if (error) {
-    console.error("[POST /api/admin/posts] Error:", error.message);
-    // 슬러그 중복 오류 특별 처리
-    if (error.code === "23505") {
-      return NextResponse.json(
-        { error: `'${slug}' 슬러그는 이미 사용 중입니다. 다른 슬러그를 사용해주세요.` },
-        { status: 409 }
-      );
-    }
-    return NextResponse.json({ error: "글 저장에 실패했습니다." }, { status: 500 });
+  // ─── 서비스 롤 키 존재 여부 확인 ───
+  if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    return NextResponse.json(
+      { error: "서버에 SUPABASE_SERVICE_ROLE_KEY 환경변수가 설정되지 않았습니다. Cloudflare Settings > Variables and secrets에서 추가해주세요." },
+      { status: 500 }
+    );
   }
 
-  return NextResponse.json({ post: newPost }, { status: 201 });
+  try {
+    const supabase = createAdminClient();
+
+    // ─── 글 저장 ───
+    const { data: newPost, error } = await supabase
+      .from("posts")
+      .insert({
+        title: title.trim(),
+        slug: slug.trim(),
+        excerpt: excerpt.trim(),
+        content,
+        locale,
+        status,
+        thumbnail_url: thumbnail_url || null,
+        // 빈 문자열은 null로 처리 (외래키 제약 때문에)
+        category_id: category_id || null,
+        series_id: series_id || null,
+        published_at: published_at ?? null,
+      })
+      .select("id, title, slug, status, locale")
+      .single();
+
+    if (error) {
+      console.error("[POST /api/admin/posts] Error:", error.message);
+      // 슬러그 중복 오류 특별 처리
+      if (error.code === "23505") {
+        return NextResponse.json(
+          { error: `'${slug}' 슬러그는 이미 사용 중입니다. 다른 슬러그를 사용해주세요.` },
+          { status: 409 }
+        );
+      }
+      return NextResponse.json({ error: `글 저장 실패: ${error.message}` }, { status: 500 });
+    }
+
+    return NextResponse.json({ post: newPost }, { status: 201 });
+  } catch (err) {
+    console.error("[POST /api/admin/posts] Exception:", err);
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "서버 내부 오류가 발생했습니다." },
+      { status: 500 }
+    );
+  }
 }
 
 // ─────────────────────────────────────────────
