@@ -4,7 +4,7 @@
 // Supabase에서 발행된 글 목록을 가져와 자동으로 sitemap.xml을 생성합니다
 
 import type { MetadataRoute } from "next";
-import { createAdminClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 
 // 사이트 기본 URL (bangjang.net 루트 도메인 기준)
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bangjang.net";
@@ -13,29 +13,47 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bangjang.net";
 const LOCALES = ["ko", "en"];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const supabase = createAdminClient();
+  // 공개 키(anon key)를 사용하는 Supabase 클라이언트 생성
+  // 발행된 글, 카테고리, 태그는 공개 데이터이므로 service_role 키가 필요 없습니다
+  const supabase = createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
-  // ─── 1) 발행된 모든 글 가져오기 ───
-  const { data: posts } = await supabase
-    .from("posts")
-    .select("slug, locale, updated_at")
-    .eq("status", "published")
-    .order("published_at", { ascending: false });
+  let posts: Array<{ slug: string; locale: string; updated_at: string }> | null = null;
+  let categories: Array<{ slug: string }> | null = null;
+  let tags: Array<{ slug: string }> | null = null;
+  let series: Array<{ slug: string }> | null = null;
 
-  // ─── 2) 모든 카테고리 가져오기 ───
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("slug");
+  try {
+    // ─── 1) 발행된 모든 글 가져오기 ───
+    const { data: postsData } = await supabase
+      .from("posts")
+      .select("slug, locale, updated_at")
+      .eq("status", "published")
+      .order("published_at", { ascending: false });
+    posts = postsData;
 
-  // ─── 3) 모든 태그 가져오기 ───
-  const { data: tags } = await supabase
-    .from("tags")
-    .select("slug");
+    // ─── 2) 모든 카테고리 가져오기 ───
+    const { data: categoriesData } = await supabase
+      .from("categories")
+      .select("slug");
+    categories = categoriesData;
 
-  // ─── 4) 모든 시리즈 가져오기 ───
-  const { data: series } = await supabase
-    .from("series")
-    .select("slug");
+    // ─── 3) 모든 태그 가져오기 ───
+    const { data: tagsData } = await supabase
+      .from("tags")
+      .select("slug");
+    tags = tagsData;
+
+    // ─── 4) 모든 시리즈 가져오기 ───
+    const { data: seriesData } = await supabase
+      .from("series")
+      .select("slug");
+    series = seriesData;
+  } catch (error) {
+    console.error("Failed to fetch sitemap dynamic data:", error);
+  }
 
   // ─── 정적 페이지 URL 생성 ───
   // 각 언어별로 홈, 블로그, 소개, 개인정보방침 등 고정 페이지 생성
