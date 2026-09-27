@@ -16,6 +16,8 @@ export default function Footer() {
   const [email, setEmail] = useState("");
   // 구독 처리 상태: idle | loading | success | error
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  // 서버 피드백 메시지
+  const [feedbackMsg, setFeedbackMsg] = useState("");
 
   // 뉴스레터 구독 제출 함수
   const handleSubscribe = async (e: React.FormEvent) => {
@@ -23,6 +25,7 @@ export default function Footer() {
     if (!email.trim()) return;
 
     setStatus("loading");
+    setFeedbackMsg("");
     try {
       // /api/newsletter 엔드포인트로 POST 요청
       const res = await fetch("/api/newsletter", {
@@ -31,18 +34,23 @@ export default function Footer() {
         body: JSON.stringify({ email }),
       });
 
+      const data = await res.json().catch(() => null);
+
       if (res.ok) {
         setStatus("success");
+        setFeedbackMsg(data?.message || tHome("success"));
         setEmail(""); // 입력 초기화
       } else {
         setStatus("error");
+        setFeedbackMsg(data?.error || tHome("error"));
       }
     } catch {
       setStatus("error");
+      setFeedbackMsg(tHome("error"));
     }
 
-    // 3초 후 상태 초기화
-    setTimeout(() => setStatus("idle"), 3000);
+    // 4초 후 상태 초기화
+    setTimeout(() => setStatus("idle"), 4000);
   };
 
   const currentYear = new Date().getFullYear();
@@ -91,12 +99,12 @@ export default function Footer() {
           {/* 구독 성공/실패 메시지 */}
           {status === "success" && (
             <p className={styles.successMsg} role="alert">
-              ✅ {tHome("success")}
+              ✅ {feedbackMsg || tHome("success")}
             </p>
           )}
           {status === "error" && (
             <p className={styles.errorMsg} role="alert">
-              ❌ {tHome("error")}
+              ❌ {feedbackMsg || tHome("error")}
             </p>
           )}
         </div>

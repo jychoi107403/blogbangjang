@@ -3,7 +3,7 @@
 // POST: 이메일 저장 + 인증 이메일 발송 (Resend API)
 
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createClient, createAdminClient } from "@/lib/supabase/server";
 
 // ─────────────────────────────────────────────
 // POST /api/newsletter
@@ -35,28 +35,39 @@ export async function POST(req: NextRequest) {
 
   const emailLower = email.toLowerCase().trim();
 
-  const supabase = await createClient();
+  // service_role 키가 있으면 어드민 클라이언트 사용 (RLS 우회하여 구독자 확인 가능)
+  const supabase = process.env.SUPABASE_SERVICE_ROLE_KEY
+    ? createAdminClient()
+    : await createClient();
 
   // ─── 중복 이메일 확인 ───
-  const { data: existing } = await supabase
-    .from("newsletter_subscribers")
-    .select("id, is_verified")
-    .eq("email", emailLower)
-    .single();
+  let existing = null;
+  try {
+    const { data } = await supabase
+      .from("newsletter_subscribers")
+      .select("id, is_verified")
+      .eq("email", emailLower)
+      .maybeSingle();
+    existing = data;
+  } catch (err) {
+    console.warn("[POST /api/newsletter] Existing subscriber check skipped:", err);
+  }
 
   if (existing) {
     if (existing.is_verified) {
       // 이미 인증된 구독자
+      if (!contentType.includes("application/json")) {
+        return NextResponse.redirect(new URL(`/${locale}/blog?subscribed=already`, req.url));
+      }
       return NextResponse.json(
         {
-          error: locale === "ko"
+          success: true,
+          message: locale === "ko"
             ? "이미 구독 중인 이메일입니다."
             : "This email is already subscribed.",
         },
-        { status: 409 }
+        { status: 200 }
       );
-    } else {
-      // 미인증 상태: 인증 이메일 재발송
     }
   } else {
     // ─── 새 구독자 DB에 추가 ───
@@ -69,6 +80,24 @@ export async function POST(req: NextRequest) {
 
     if (insertError) {
       console.error("[POST /api/newsletter] Insert error:", insertError.message);
+      // 이미 등록된 경우 (중복 키 23505) 에러가 아닌 정상으로 안내
+      if (insertError.code === "23505") {
+        if (!contentType.includes("application/json")) {
+          return NextResponse.redirect(new URL(`/${locale}/blog?subscribed=already`, req.url));
+        }
+        return NextResponse.json(
+          {
+            success: true,
+            message: locale === "ko"
+              ? "이미 구독 신청된 이메일입니다."
+              : "This email is already subscribed.",
+          },
+          { status: 200 }
+        );
+      }
+      if (!contentType.includes("application/json")) {
+        return NextResponse.redirect(new URL(`/${locale}/blog?subscribed=error`, req.url));
+      }
       return NextResponse.json({ error: "Failed to subscribe" }, { status: 500 });
     }
   }
