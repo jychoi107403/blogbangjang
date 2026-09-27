@@ -28,11 +28,11 @@ jobs:
         with:
           version: 10
 
-      # 단계 3: Node.js 20 환경 설정 (캐시 활성화로 빌드 속도 향상)
-      - name: Setup Node.js 20
+      # 단계 3: Node.js 22 환경 설정 (Wrangler 최신 버전 호환 및 캐시 활성화)
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: "pnpm"
 
       # 단계 4: 프로젝트 패키지 설치
