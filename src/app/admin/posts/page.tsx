@@ -1,6 +1,6 @@
 // app/admin/posts/page.tsx
 // 어드민 전체 글 목록 관리 페이지
-// 등록된 모든 글(발행됨/임시저장)을 조회하고 관리하는 화면
+// 등록된 모든 글(발행됨/임시저장)을 조회하고 수정/발행/관리하는 화면
 
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -63,7 +63,7 @@ export default async function AdminPostsPage() {
             <div className={styles.colLocale}>언어</div>
             <div className={styles.colViews}>조회수</div>
             <div className={styles.colDate}>작성일</div>
-            <div className={styles.colAction}>액션</div>
+            <div className={styles.colAction}>관리</div>
           </div>
 
           {/* 글 목록 행들 */}
@@ -78,13 +78,12 @@ export default async function AdminPostsPage() {
           ) : (
             posts.map((post) => (
               <div key={post.id} className={styles.tableRow}>
-                {/* 글 제목 */}
+                {/* 글 제목 (클릭 시 바로 수정 에디터로 이동) */}
                 <div className={styles.colTitle}>
                   <Link
-                    href={`/${post.locale}/blog/${post.slug}`}
-                    target="_blank"
+                    href={`/admin/posts/${post.id}/edit`}
                     className={styles.postTitle}
-                    title={post.title}
+                    title="클릭하여 글 수정/편집"
                   >
                     {post.title}
                   </Link>
@@ -99,7 +98,7 @@ export default async function AdminPostsPage() {
                         : styles.statusDraft
                     }`}
                   >
-                    {post.status === "published" ? "발행됨" : "임시저장"}
+                    {post.status === "published" ? "✅ 발행됨" : "📝 임시저장"}
                   </span>
                 </div>
 
@@ -118,15 +117,37 @@ export default async function AdminPostsPage() {
                   {formatDate(post.created_at)}
                 </div>
 
-                {/* 액션 (블로그에서 보기) */}
+                {/* 액션 (임시저장이면 '이어서 작성', 발행됨이면 '수정' + '보기') */}
                 <div className={styles.colAction}>
-                  <Link
-                    href={`/${post.locale}/blog/${post.slug}`}
-                    target="_blank"
-                    className={styles.actionBtn}
-                  >
-                    보기
-                  </Link>
+                  <div className={styles.actionGroup}>
+                    {post.status === "draft" ? (
+                      <Link
+                        href={`/admin/posts/${post.id}/edit`}
+                        className={styles.actionDraftBtn}
+                        title="임시저장 글 불러와서 계속 작성"
+                      >
+                        ✏️ 이어서 작성
+                      </Link>
+                    ) : (
+                      <>
+                        <Link
+                          href={`/admin/posts/${post.id}/edit`}
+                          className={styles.actionEditBtn}
+                          title="글 내용 수정"
+                        >
+                          ✏️ 수정
+                        </Link>
+                        <Link
+                          href={`/${post.locale}/blog/${post.slug}`}
+                          target="_blank"
+                          className={styles.actionBtn}
+                          title="블로그에서 실제 글 보기"
+                        >
+                          🌐 보기
+                        </Link>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
             ))

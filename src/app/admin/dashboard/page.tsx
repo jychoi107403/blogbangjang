@@ -150,9 +150,13 @@ export default async function DashboardPage() {
           {/* 글 목록 행 */}
           {recentPosts.map((post) => (
             <div key={post.id} className={styles.tableRow}>
-              <span className={`${styles.colTitle} ${styles.postTitle}`}>
+              <Link
+                href={`/admin/posts/${post.id}/edit`}
+                className={`${styles.colTitle} ${styles.postTitle}`}
+                title="클릭하여 글 수정/이어서 작성"
+              >
                 {post.title}
-              </span>
+              </Link>
               {/* 발행 상태 뱃지 */}
               <span className={styles.colStatus}>
                 <span
@@ -176,11 +180,11 @@ export default async function DashboardPage() {
               </span>
               <span className={styles.colAction}>
                 <Link
-                  href={`/ko/blog/${post.slug}`}
-                  target="_blank"
+                  href={`/admin/posts/${post.id}/edit`}
                   className={styles.actionBtn}
+                  title="글 수정하기"
                 >
-                  보기
+                  {post.status === "draft" ? "✏️ 작성" : "✏️ 수정"}
                 </Link>
               </span>
             </div>

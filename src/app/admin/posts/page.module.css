@@ -123,10 +123,57 @@
   color: var(--text-tertiary);
 }
 
-/* 보기 버튼 */
+/* 보기 및 수정 버튼 */
+.actionGroup {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.actionDraftBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--accent-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--accent-primary);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.actionDraftBtn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.actionEditBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background-color: var(--bg-card);
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.actionEditBtn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
 .actionBtn {
   display: inline-block;
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-color);
   font-size: 0.75rem;
