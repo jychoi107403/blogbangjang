@@ -34,6 +34,22 @@ export default function RootLayout({
           crossOrigin="anonymous"
         />
 
+        {/* 구글 애널리틱스 4 (GA4) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-09EQ8TWS60"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-09EQ8TWS60');
+            `,
+          }}
+        />
+
         {/* 
           다크모드 깜빡임 방지 스크립트 (인라인)
           페이지 렌더링 전에 실행되어 올바른 테마를 즉시 적용
