@@ -38,9 +38,14 @@ export default function Header() {
   // 언어 전환 함수: 현재 경로에서 언어 코드만 교체
   const switchLanguage = () => {
     const nextLocale = locale === "ko" ? "en" : "ko";
-    // 현재 경로에서 언어 접두사 제거 후 새 언어로 교체
-    const pathWithoutLocale = pathname.replace(`/${locale}`, "") || "/";
-    router.push(`/${nextLocale}${pathWithoutLocale}`);
+    let purePath = pathname;
+    if (purePath.startsWith(`/${locale}/`)) {
+      purePath = purePath.slice(locale.length + 1);
+    } else if (purePath === `/${locale}`) {
+      purePath = "";
+    }
+    const cleanPath = purePath.startsWith("/") ? purePath : `/${purePath}`;
+    router.push(`/${nextLocale}${cleanPath === "/" ? "" : cleanPath}`);
   };
 
   // 네비게이션 메뉴 항목 정의

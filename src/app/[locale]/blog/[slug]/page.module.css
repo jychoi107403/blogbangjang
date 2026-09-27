@@ -48,6 +48,29 @@
   gap: 1rem;
 }
 
+/* 번역본 부재 시 원본 제공 안내 배너 */
+.fallbackNotice {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.fallbackIcon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.fallbackText {
+  font-weight: 500;
+}
+
 /* 글 제목 */
 .title {
   font-size: clamp(1.8rem, 4vw, 2.5rem);

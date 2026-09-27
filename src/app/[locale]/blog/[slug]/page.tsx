@@ -1,6 +1,7 @@
 // app/[locale]/blog/[slug]/page.tsx
 // 블로그 글 상세 페이지
 // 본문, 태그, 시리즈 네비게이션, 관련 글, 댓글 섹션 포함
+// Fallback 지원: 번역본이 없어도 원본 글을 정상 렌더링하고 사용자에게 부드럽게 안내
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -49,7 +50,7 @@ function formatDate(dateStr: string, locale: string): string {
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { locale, slug } = await params;
 
-  // 글 상세 정보 조회
+  // 글 상세 정보 조회 (번역본 없으면 한국어 원문 Fallback)
   const post = await getPostBySlug(slug, locale);
 
   // 글이 없으면 404 페이지 표시
@@ -84,6 +85,18 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
 
           {/* 글 헤더 */}
           <header className={styles.header}>
+            {/* 번역본이 없을 때 표시되는 친절한 안내 배너 */}
+            {post.isFallback && (
+              <div className={styles.fallbackNotice} role="status">
+                <span className={styles.fallbackIcon} aria-hidden="true">🌐</span>
+                <span className={styles.fallbackText}>
+                  {locale === "ko"
+                    ? "이 글은 한국어 원문으로 제공되고 있습니다."
+                    : "This article is currently displayed in its original Korean language."}
+                </span>
+              </div>
+            )}
+
             {/* 카테고리 뱃지 */}
             {post.categories && (
               <CategoryBadge
@@ -294,7 +307,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
         </div>
 
         {/* ─────────────────────────────── */}
-        {/* 우측 사이드바 (목차 - 추후 JS로 동적 생성) */}
+        {/* 우측 사이드바 (목차) */}
         {/* ─────────────────────────────── */}
         <aside className={styles.sidebar}>
           <div className={styles.tocCard}>
