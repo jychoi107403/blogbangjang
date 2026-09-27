@@ -22,6 +22,14 @@ export async function generateMetadata({
       locale === "ko"
         ? "방장 블로그를 운영하는 방장에 대해 소개합니다. 블로그의 목적, 기술 스택, 연락처 정보를 확인하세요."
         : "Learn about Bangjang Blog. Discover the purpose, tech stack, and contact information.",
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/about`,
+      languages: {
+        ko: "https://bangjang.net/ko/about",
+        en: "https://bangjang.net/en/about",
+        "x-default": "https://bangjang.net/ko/about",
+      },
+    },
   };
 }
 

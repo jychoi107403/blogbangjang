@@ -18,6 +18,14 @@ export async function generateMetadata({ params }: TagPageProps): Promise<Metada
   if (!tag) return { title: "태그를 찾을 수 없습니다" };
   return {
     title: locale === "ko" ? `#${tag.name} | 태그` : `#${tag.name} | Tag`,
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/tag/${slug}`,
+      languages: {
+        ko: `https://bangjang.net/ko/tag/${slug}`,
+        en: `https://bangjang.net/en/tag/${slug}`,
+        "x-default": `https://bangjang.net/ko/tag/${slug}`,
+      },
+    },
   };
 }
 

@@ -16,6 +16,14 @@ export async function generateMetadata({ params }: SeriesPageProps): Promise<Met
   return {
     title: locale === "ko" ? "시리즈" : "Series",
     description: locale === "ko" ? "연재 중인 시리즈 목록입니다." : "List of ongoing series.",
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/series`,
+      languages: {
+        ko: "https://bangjang.net/ko/series",
+        en: "https://bangjang.net/en/series",
+        "x-default": "https://bangjang.net/ko/series",
+      },
+    },
   };
 }
 

@@ -22,6 +22,14 @@ export async function generateMetadata({
       locale === "ko"
         ? "방장 블로그의 개인정보처리방침입니다. 수집 정보, 이용 목적, 보유 기간 등을 안내합니다."
         : "Privacy Policy of Bangjang Blog. Learn about data collection, usage, and retention.",
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/privacy`,
+      languages: {
+        ko: "https://bangjang.net/ko/privacy",
+        en: "https://bangjang.net/en/privacy",
+        "x-default": "https://bangjang.net/ko/privacy",
+      },
+    },
   };
 }
 

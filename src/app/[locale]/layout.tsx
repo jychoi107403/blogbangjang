@@ -1,6 +1,7 @@
 // app/[locale]/layout.tsx
 // 언어별 공통 레이아웃: Header + Footer를 모든 페이지에 공통으로 감싸는 역할
 // next-intl의 NextIntlClientProvider로 클라이언트 컴포넌트에도 번역 제공
+// 구글 서치콘솔 중복 페이지 방지를 위한 동적 Canonical 및 hreflang 메타데이터 탑재
 
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -10,36 +11,51 @@ import { routing } from "@/i18n/routing";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
-// 페이지 메타데이터 (SEO)
-export const metadata: Metadata = {
-  title: {
-    // 각 페이지 제목 뒤에 블로그 이름 추가 (예: "Next.js 배우기 | 방장 블로그")
-    template: "%s | 방장 블로그",
-    default: "방장 블로그",
-  },
-  description: "개발, 기술, 그리고 배움의 기록. Next.js, TypeScript, 웹 개발 등 다양한 주제의 글을 공유합니다.",
-  keywords: ["개발 블로그", "Next.js", "TypeScript", "웹 개발", "방장"],
-  authors: [{ name: "방장" }],
-  openGraph: {
-    type: "website",
-    locale: "ko_KR",
-    siteName: "방장 블로그",
-  },
-  // 구글 애드센스 소유권 인증
-  other: {
-    "google-adsense-account": "ca-pub-1774804957511077",
-  },
-};
-
-// 지원 언어 목록에서 정적 경로 생성 (빌드 최적화)
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
-
 // 레이아웃 Props 타입 정의
 interface LocaleLayoutProps {
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
+}
+
+// 언어별 동적 SEO 메타데이터 (Canonical 및 다국어 hreflang 지정)
+export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
+  const { locale } = await params;
+  const isKo = locale === "ko";
+
+  return {
+    title: {
+      // 각 페이지 제목 뒤에 블로그 이름 추가 (예: "Next.js 배우기 | 방장 블로그")
+      template: isKo ? "%s | 방장 블로그" : "%s | Bangjang Blog",
+      default: isKo ? "방장 블로그 — 개발, 기술, 그리고 배움의 기록" : "Bangjang Blog — Tech & Learning",
+    },
+    description: isKo
+      ? "개발, 기술, 그리고 배움의 기록. Next.js, TypeScript, 웹 개발 등 다양한 주제의 글을 공유합니다."
+      : "Records of development, technology, and learning. Sharing articles on Next.js, TypeScript, and web development.",
+    keywords: ["방장 블로그", "웹 개발", "Next.js", "TypeScript", "React", "AI 활용"],
+    authors: [{ name: "방장" }],
+    // 구글 검색로봇이 중복 페이지로 보지 않도록 정확한 대표 URL(Canonical)과 언어별 대체 URL 명시
+    alternates: {
+      canonical: `https://bangjang.net/${locale}`,
+      languages: {
+        "ko": "https://bangjang.net/ko",
+        "en": "https://bangjang.net/en",
+        "x-default": "https://bangjang.net/ko",
+      },
+    },
+    openGraph: {
+      type: "website",
+      locale: isKo ? "ko_KR" : "en_US",
+      siteName: "방장 블로그",
+    },
+    other: {
+      "google-adsense-account": "ca-pub-1774804957511077",
+    },
+  };
+}
+
+// 지원 언어 목록에서 정적 경로 생성 (빌드 최적화)
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
 }
 
 export default async function LocaleLayout({

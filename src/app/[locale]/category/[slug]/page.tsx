@@ -19,6 +19,14 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   return {
     title: locale === "ko" ? `${category.name} | 카테고리` : `${category.name} | Category`,
     description: category.description ?? undefined,
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/category/${slug}`,
+      languages: {
+        ko: `https://bangjang.net/ko/category/${slug}`,
+        en: `https://bangjang.net/en/category/${slug}`,
+        "x-default": `https://bangjang.net/ko/category/${slug}`,
+      },
+    },
   };
 }
 

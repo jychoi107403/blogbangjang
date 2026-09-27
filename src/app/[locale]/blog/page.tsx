@@ -24,6 +24,14 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
       locale === "ko"
         ? "개발, 기술, 배움에 관한 모든 글 목록입니다."
         : "All posts about development, tech, and learning.",
+    alternates: {
+      canonical: `https://bangjang.net/${locale}/blog`,
+      languages: {
+        ko: "https://bangjang.net/ko/blog",
+        en: "https://bangjang.net/en/blog",
+        "x-default": "https://bangjang.net/ko/blog",
+      },
+    },
   };
 }
 
