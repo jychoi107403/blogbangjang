@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     locale: "ko_KR",
     siteName: "방장 블로그",
   },
+  // 구글 애드센스 소유권 인증
+  other: {
+    "google-adsense-account": "ca-pub-1774804957511077",
+  },
 };
 
 // 지원 언어 목록에서 정적 경로 생성 (빌드 최적화)
