@@ -6,8 +6,8 @@
 import type { MetadataRoute } from "next";
 import { createAdminClient } from "@/lib/supabase/server";
 
-// 사이트 기본 URL
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://blog.bangjang.net";
+// 사이트 기본 URL (bangjang.net 루트 도메인 기준)
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bangjang.net";
 
 // 지원 언어 목록
 const LOCALES = ["ko", "en"];

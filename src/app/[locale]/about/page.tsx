@@ -170,11 +170,11 @@ export default async function AboutPage({ params }: AboutPageProps) {
               <div className={styles.contactItem}>
                 <span>🌐</span>
                 <a
-                  href="https://blog.bangjang.net"
+                  href="https://bangjang.net"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  blog.bangjang.net
+                  bangjang.net
                 </a>
               </div>
             </div>
