@@ -6,7 +6,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bangjang.net";
-const NAVER_VERIFICATION = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "";
+// 네이버 서치어드바이저 웹마스터도구 소유권 인증 키
+const NAVER_VERIFICATION = process.env.NEXT_PUBLIC_NAVER_SITE_VERIFICATION || "da92228f4c7114128a2f9e9beaa474d7021db914";
 const GOOGLE_VERIFICATION = process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "";
 
 export const metadata: Metadata = {
@@ -56,7 +57,7 @@ export const metadata: Metadata = {
   // 검색엔진 및 외부 서비스 소유권 인증 태그
   other: {
     "google-adsense-account": "ca-pub-1774804957511077",
-    ...(NAVER_VERIFICATION ? { "naver-site-verification": NAVER_VERIFICATION } : {}),
+    "naver-site-verification": NAVER_VERIFICATION,
     ...(GOOGLE_VERIFICATION ? { "google-site-verification": GOOGLE_VERIFICATION } : {}),
   },
 };
@@ -73,10 +74,8 @@ export default function RootLayout({
         {/* 구글 애드센스 공식 메타태그 */}
         <meta name="google-adsense-account" content="ca-pub-1774804957511077" />
 
-        {/* 네이버 서치어드바이저 소유권 확인 메타태그 (환경변수가 비어있을 경우를 대비한 태그 렌더링) */}
-        {NAVER_VERIFICATION && (
-          <meta name="naver-site-verification" content={NAVER_VERIFICATION} />
-        )}
+        {/* 네이버 서치어드바이저 소유권 확인 공식 메타태그 */}
+        <meta name="naver-site-verification" content={NAVER_VERIFICATION} />
 
         {/* 구글 서치콘솔 소유권 확인 메타태그 */}
         {GOOGLE_VERIFICATION && (
