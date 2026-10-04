@@ -4,7 +4,9 @@
     "blog": "Blog",
     "series": "Series",
     "search": "Search",
-    "about": "About"
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
   },
   "home": {
     "title": "Bangjang Blog",

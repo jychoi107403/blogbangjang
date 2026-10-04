@@ -4,7 +4,9 @@
     "blog": "블로그",
     "series": "시리즈",
     "search": "검색",
-    "about": "소개"
+    "about": "소개",
+    "privacy": "개인정보처리방침",
+    "terms": "이용약관"
   },
   "home": {
     "title": "방장 블로그",

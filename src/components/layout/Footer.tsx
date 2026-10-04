@@ -134,6 +134,12 @@ export default function Footer() {
             <Link href={`/${locale}/search`} className={styles.footerLink}>
               {tNav("search")}
             </Link>
+            <Link href={`/${locale}/privacy`} className={styles.footerLink}>
+              {tNav("privacy")}
+            </Link>
+            <Link href={`/${locale}/terms`} className={styles.footerLink}>
+              {tNav("terms")}
+            </Link>
           </nav>
 
           {/* 저작권 */}
