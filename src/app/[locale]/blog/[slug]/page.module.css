@@ -275,6 +275,33 @@
   color: var(--text-secondary);
 }
 
+/* 본문 내 표 (모바일에서는 가로 스크롤) */
+.content table {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+  margin: 1.5em 0;
+  font-size: 0.92rem;
+}
+
+.content th,
+.content td {
+  padding: 0.7em 0.9em;
+  border: 1px solid var(--border-color);
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+/* 표 머리글 */
+.content th {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
 /* 본문 내 목록 */
 .content ul, .content ol {
   padding-left: 1.5em;
