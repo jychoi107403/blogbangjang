@@ -255,6 +255,26 @@
   margin: 1.5em 0;
 }
 
+/* 본문 내 이미지 + 설명 (<figure><img><figcaption>) */
+.content figure {
+  margin: 1.8em 0;
+  text-align: center;
+}
+
+/* figure 안의 이미지는 figure가 여백을 담당하므로 위아래 여백 제거 */
+.content figure img {
+  display: block;
+  margin: 0 auto;
+  box-shadow: var(--shadow-sm);
+}
+
+/* 이미지 설명 글 */
+.content figcaption {
+  margin-top: 0.6em;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
 /* 본문 내 목록 */
 .content ul, .content ol {
   padding-left: 1.5em;
