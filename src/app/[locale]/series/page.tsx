@@ -63,6 +63,7 @@ export default async function SeriesPage({ params }: SeriesPageProps) {
                       alt={series.title}
                       fill
                       sizes="(max-width: 600px) 100vw, 33vw"
+                      unoptimized
                       className={styles.seriesImage}
                     />
                   ) : (

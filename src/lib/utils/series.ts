@@ -36,7 +36,8 @@ export async function getAllSeries(locale: string = "ko") {
     title: series.title,
     slug: series.slug,
     description: series.description,
-    thumbnail_url: null as string | null,  // DB에 컬럼 없음, null 반환
+    // DB에 컬럼이 없으므로 public/series/<슬러그>.webp 이미지를 사용 (압축본, 약 10~20KB)
+    thumbnail_url: `/series/${series.slug}.webp` as string | null,
     created_at: series.created_at,
     post_count: Array.isArray(series.posts) ? series.posts.length : 0,
   }));
@@ -60,5 +61,7 @@ export async function getSeriesBySlug(slug: string) {
     return null;
   }
 
-  return series ? { ...series, thumbnail_url: null as string | null } : null;
+  return series
+    ? { ...series, thumbnail_url: `/series/${series.slug}.webp` as string | null }
+    : null;
 }
