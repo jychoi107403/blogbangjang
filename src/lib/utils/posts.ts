@@ -50,8 +50,7 @@ export async function getPublishedPosts({
         categories ( id, name, slug, color ),
         series ( id, title, slug )
       `, { count: "exact" })
-      .eq("status", "published")
-      .order("created_at", { ascending: false });
+      .eq("status", "published");
 
     if (queryLocale) {
       q = q.eq("locale", queryLocale);
@@ -60,6 +59,13 @@ export async function getPublishedPosts({
     if (seriesId) q = q.eq("series_id", seriesId);
     if (postIdsFromTag && postIdsFromTag.length > 0) {
       q = q.in("id", postIdsFromTag);
+    }
+
+    // 시리즈로 볼 때는 1편부터 순서대로(series_order 오름차순), 일반 목록은 최신순(created_at 내림차순) 정렬
+    if (seriesId) {
+      q = q.order("series_order", { ascending: true, nullsFirst: false });
+    } else {
+      q = q.order("created_at", { ascending: false });
     }
 
     const from = (page - 1) * limit;
